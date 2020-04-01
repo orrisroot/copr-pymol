@@ -1,4 +1,4 @@
-%define         tagname  release_0_1_94
+%global         gittag release_0_1_94
 
 Name:           chemical-mime-data
 Version:        0.1.94
@@ -7,7 +7,7 @@ Summary:        Support for chemical/* MIME types
 
 License:        LGPLv2+
 URL:            https://github.com/dleidert/chemical-mime
-Source0:        https://github.com/dleidert/chemical-mime/archive/%{tagname}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/dleidert/chemical-mime/archive/%{gittag}/%{name}-%{version}.tar.gz
 Patch0:         chemical-mime-data-0.1.94-turbomole.patch
 
 BuildArch:      noarch
@@ -29,7 +29,7 @@ proposed in 1995, though it seems they have never been registered with IANA.
 
 
 %prep
-%autosetup -n chemical-mime-%{tagname}/%{name} -p1
+%autosetup -n chemical-mime-%{gittag}/%{name} -p1
 iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv ChangeLog
 sed -i -e '/^libdir/d' chemical-mime-data.pc.in
 
