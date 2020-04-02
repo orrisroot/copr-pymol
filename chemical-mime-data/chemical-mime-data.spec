@@ -63,6 +63,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %changelog
 * Wed Apr 01 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 0.1.94-27.1
 - Use github release file for Source0
+- Rebuild for EPEL 8
 
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.94-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
