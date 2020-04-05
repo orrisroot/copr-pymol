@@ -62,7 +62,7 @@ Requires: python3-numpy%{?_isa}
 Requires: python3-mmtf
 Requires: python3-pmw
 Requires: python3-tkinter%{?_isa}
-Requires: python3-PyQt4%{?_isa}
+Requires: python3-qt5%{?_isa}
 Requires: chemical-mime-data
 
 Provides: PyMOL%{?_isa} = 0:%{version}-%{release}
@@ -154,6 +154,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 %changelog
 * Sun Apr 05 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 2.3.0-7.1
 - Rebuild for EPEL 8
+- Set python3-qt5 as Requires instead of python3-PyQt4.
 
 * Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
