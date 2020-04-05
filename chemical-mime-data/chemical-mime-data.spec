@@ -1,5 +1,3 @@
-%global         gittag release_0_1_94
-
 Name:           chemical-mime-data
 Version:        0.1.94
 Release:        27.1%{?dist}.ors
@@ -7,7 +5,7 @@ Summary:        Support for chemical/* MIME types
 
 License:        LGPLv2+
 URL:            https://github.com/dleidert/chemical-mime
-Source0:        https://github.com/dleidert/chemical-mime/archive/%{gittag}/%{name}-%{version}.tar.gz
+Source0:        http://downloads.sourceforge.net/chemical-mime/%{name}-%{version}.tar.bz2
 Patch0:         chemical-mime-data-0.1.94-turbomole.patch
 
 BuildArch:      noarch
@@ -29,13 +27,12 @@ proposed in 1995, though it seems they have never been registered with IANA.
 
 
 %prep
-%autosetup -n chemical-mime-%{gittag}/%{name} -p1
+%autosetup -p1
 iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv ChangeLog
 sed -i -e '/^libdir/d' chemical-mime-data.pc.in
 
 
 %build
-./autogen.sh
 %configure --disable-update-database \
            --without-gnome-mime \
            --without-pixmaps \
@@ -61,8 +58,7 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 
 %changelog
-* Wed Apr 01 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 0.1.94-27.1
-- Use github release file for Source0
+* Sun Apr 05 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 0.1.94-27.1
 - Rebuild for EPEL 8
 
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.94-27
