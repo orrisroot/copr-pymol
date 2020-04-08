@@ -14,10 +14,39 @@ $ sudo dnf install pymol
 ```
 
 ## Providing Packages
-- apbs [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/)
-- chemical-mime-data [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/chemical-mime-data/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/chemical-mime-data/)
-- maloc [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/)
-- mmtf-cpp [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/mmtf-cpp/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/mmtf-cpp/)
-- msgpack [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/msgpack/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/msgpack/)
-- pymol [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/)
-- python-pmw [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/)
+* apbs : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/)
+  * apbs-1.5-4.1.el8.ors.src.rpm
+  * apbs-1.5-4.1.el8.ors.x86_64.rpm
+  * apbs-debuginfo-1.5-4.1.el8.ors.x86_64.rpm
+  * apbs-debugsource-1.5-4.1.el8.ors.x86_64.rpm
+  * apbs-devel-1.5-4.1.el8.ors.x86_64.rpm
+  * apbs-doc-1.5-4.1.el8.ors.x86_64.rpm
+  * apbs-tools-1.5-4.1.el8.ors.x86_64.rpm
+  * apbs-tools-debuginfo-1.5-4.1.el8.ors.x86_64.rpm
+* chemical-mime-data : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/chemical-mime-data/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/chemical-mime-data/)
+  * chemical-mime-data-0.1.94-27.1.el8.ors.noarch.rpm
+  * chemical-mime-data-0.1.94-27.1.el8.ors.src.rpm
+* maloc : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/)
+  * maloc-1.5-20.1.el8.ors.src.rpm
+  * maloc-1.5-20.1.el8.ors.x86_64.rpm
+  * maloc-debuginfo-1.5-20.1.el8.ors.x86_64.rpm
+  * maloc-debugsource-1.5-20.1.el8.ors.x86_64.rpm
+  * maloc-devel-1.5-20.1.el8.ors.x86_64.rpm
+* mmtf-cpp : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/mmtf-cpp/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/mmtf-cpp/)
+  * mmtf-cpp-1.0.0-4.1.el8.ors.src.rpm
+  * mmtf-cpp-devel-1.0.0-4.1.el8.ors.x86_64.rpm
+  * mmtf-cpp-doc-1.0.0-4.1.el8.ors.noarch.rpm
+* msgpack : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/msgpack/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/msgpack/)
+  * msgpack-3.1.0-4.1.el8.ors.src.rpm
+  * msgpack-3.1.0-4.1.el8.ors.x86_64.rpm
+  * msgpack-debuginfo-3.1.0-4.1.el8.ors.x86_64.rpm
+  * msgpack-debugsource-3.1.0-4.1.el8.ors.x86_64.rpm
+  * msgpack-devel-3.1.0-4.1.el8.ors.x86_64.rpm
+* pymol : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/)
+  * pymol-2.3.0-7.1.el8.ors.src.rpm
+  * pymol-2.3.0-7.1.el8.ors.x86_64.rpm
+  * pymol-debuginfo-2.3.0-7.1.el8.ors.x86_64.rpm
+  * pymol-debugsource-2.3.0-7.1.el8.ors.x86_64.rpm
+* python-pmw : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/)
+  * python-pmw-2.0.0-17.1.el8.ors.src.rpm
+  * python3-pmw-2.0.0-17.1.el8.ors.noarch.rpm
