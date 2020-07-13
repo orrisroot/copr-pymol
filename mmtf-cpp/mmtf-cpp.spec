@@ -2,19 +2,22 @@
 
 %bcond_without doc
 
-# Use devtoolset 8
+# Use devtoolset 9
 %if 0%{?rhel} && 0%{?rhel} == 7
 %global dts devtoolset-8-
 %endif
 
 Name:    mmtf-cpp
 Version: 1.0.0
-Release: 4.1%{?dist}.ors
+Release: 5.1%{?dist}.ors
 Summary: The Macromolecular Transmission Format (MMTF) header only files
 License: MIT
 URL:     https://github.com/rcsb/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-BuildRequires: cmake3, %{?dts}gcc, %{?dts}gcc-c++
+BuildRequires: cmake3
+BuildRequires: %{?dts}gcc
+BuildRequires: %{?dts}gcc-c++
+BuildRequires: msgpack-devel >= 2.1.5
 
 %description
 The Macromolecular Transmission Format (MMTF) is a new compact binary format to transmit and
@@ -71,8 +74,12 @@ popd
 %endif
 
 %changelog
-* Sun Apr 05 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 1.0.0-4.1
+* Mon Jul 13 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 1.0.0-5.1
 - Rebuild for EPEL 8
+
+* Wed Jun 17 2020 Antonio Trande <sagitter@fedoraproject.org> - 1.0.0-5
+- BR reorganized
+- Add msgpack-devel BR
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
