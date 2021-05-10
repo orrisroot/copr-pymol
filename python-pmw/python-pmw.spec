@@ -4,7 +4,7 @@
 
 Name: python-pmw
 Version: 2.0.0
-Release: 17.1%{?dist}.ors
+Release: 20%{?dist}
 Summary: %{sum}
 License: MIT and GPLv2+
 URL: http://pmw.sourceforge.net/
@@ -69,8 +69,14 @@ rm -rf %{buildroot}%{python3_sitelib}/Pmw/Pmw_1_3_3
 %{python3_sitelib}/Pmw
 
 %changelog
-* Sun Apr 05 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 2.0.0-17.1
-- Rebuild for EPEL 8
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-18
+- Rebuilt for Python 3.9
 
 * Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild

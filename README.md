@@ -29,8 +29,8 @@ $ sudo dnf install pymol
   * apbs-tools-1.5-4.1.el8.ors.x86_64.rpm
   * apbs-tools-debuginfo-1.5-4.1.el8.ors.x86_64.rpm
 * python-pmw : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/)
-  * python-pmw-2.0.0-17.1.el8.ors.src.rpm
-  * python3-pmw-2.0.0-17.1.el8.ors.noarch.rpm
+  * python3-pmw-2.0.0-20.el8.noarch.rpm
+  * python-pmw-2.0.0-20.el8.src.rpm
 * maloc : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/)
   * maloc-1.5-22.el8.x86_64.rpm
   * maloc-devel-1.5-22.el8.x86_64.rpm
