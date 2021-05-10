@@ -1,12 +1,13 @@
 Summary: Minimal Abstraction Layer for Object-oriented C
 Name: maloc
 Version: 1.5
-Release: 20.1%{?dist}.ors
+Release: 22%{?dist}
 License: GPLv2+
 URL: http://www.fetk.org
 Source0: http://www.fetk.org/codes/download/%{name}-%{version}.tar.gz
 # removes hardcoded libdir setting
 Patch0: maloc-makefile.am.patch
+BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: doxygen
@@ -70,8 +71,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/maloc
 
 %changelog
-* Thu Apr 02 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 1.5-20.1
-- Rebuild for EPEL 8
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
