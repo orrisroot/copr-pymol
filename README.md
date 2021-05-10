@@ -36,12 +36,6 @@ $ sudo dnf install pymol
   * mmtf-cpp-1.0.0-5.1.el8.ors.src.rpm
   * mmtf-cpp-devel-1.0.0-5.1.el8.ors.x86_64.rpm
   * mmtf-cpp-doc-1.0.0-5.1.el8.ors.noarch.rpm
-* msgpack : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/msgpack/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/msgpack/)
-  * msgpack-3.1.0-4.1.el8.ors.src.rpm
-  * msgpack-3.1.0-4.1.el8.ors.x86_64.rpm
-  * msgpack-debuginfo-3.1.0-4.1.el8.ors.x86_64.rpm
-  * msgpack-debugsource-3.1.0-4.1.el8.ors.x86_64.rpm
-  * msgpack-devel-3.1.0-4.1.el8.ors.x86_64.rpm
 * pymol : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/)
   * pymol-2.3.0-7.1.el8.ors.src.rpm
   * pymol-2.3.0-7.1.el8.ors.x86_64.rpm
