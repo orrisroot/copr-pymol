@@ -28,19 +28,15 @@ $ sudo dnf install pymol
   * apbs-doc-1.5-4.1.el8.ors.x86_64.rpm
   * apbs-tools-1.5-4.1.el8.ors.x86_64.rpm
   * apbs-tools-debuginfo-1.5-4.1.el8.ors.x86_64.rpm
-* mmtf-cpp : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/mmtf-cpp/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/mmtf-cpp/)
-  * mmtf-cpp-1.0.0-5.1.el8.ors.src.rpm
-  * mmtf-cpp-devel-1.0.0-5.1.el8.ors.x86_64.rpm
-  * mmtf-cpp-doc-1.0.0-5.1.el8.ors.noarch.rpm
 * python-pmw : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/)
   * python-pmw-2.0.0-17.1.el8.ors.src.rpm
   * python3-pmw-2.0.0-17.1.el8.ors.noarch.rpm
 * maloc : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/maloc/)
-  * maloc-1.5-22.el8.src.rpm
   * maloc-1.5-22.el8.x86_64.rpm
+  * maloc-devel-1.5-22.el8.x86_64.rpm
   * maloc-debuginfo-1.5-22.el8.x86_64.rpm
   * maloc-debugsource-1.5-22.el8.x86_64.rpm
-  * maloc-devel-1.5-22.el8.x86_64.rpm
+  * maloc-1.5-22.el8.src.rpm
 * chemical-mime-data : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/chemical-mime-data/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/chemical-mime-data/)
   * chemical-mime-data-0.1.94-29.el8.noarch.rpm
   * chemical-mime-data-0.1.94-29.el8.src.rpm
