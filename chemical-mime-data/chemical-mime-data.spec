@@ -1,6 +1,6 @@
 Name:           chemical-mime-data
 Version:        0.1.94
-Release:        27.1%{?dist}.ors
+Release:        29%{?dist}
 Summary:        Support for chemical/* MIME types
 
 License:        LGPLv2+
@@ -16,6 +16,7 @@ BuildRequires:  libxml2
 BuildRequires:  libxslt
 BuildRequires:  perl(XML::Parser)
 BuildRequires:  shared-mime-info
+BuildRequires: make
 Requires:       pkgconfig
 Requires:       shared-mime-info
 Requires:       hicolor-icon-theme
@@ -58,8 +59,11 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 
 %changelog
-* Sun Apr 05 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 0.1.94-27.1
-- Rebuild for EPEL 8
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.94-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.94-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.94-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
