@@ -15,10 +15,10 @@ $ sudo dnf install pymol
 
 ## Providing Packages
 * pymol : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/pymol/)
-  * pymol-2.3.0-7.1.el8.ors.src.rpm
-  * pymol-2.3.0-7.1.el8.ors.x86_64.rpm
-  * pymol-debuginfo-2.3.0-7.1.el8.ors.x86_64.rpm
-  * pymol-debugsource-2.3.0-7.1.el8.ors.x86_64.rpm
+  * pymol-2.4.0-4.1.el8.ors.x86_64.rpm
+  * pymol-debuginfo-2.4.0-4.1.el8.ors.x86_64.rpm
+  * pymol-debugsource-2.4.0-4.1.el8.ors.x86_64.rpm
+  * pymol-2.4.0-4.1.el8.ors.src.rpm
 * apbs : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/)
   * apbs-3.0.0-7.1.el8.ors.x86_64.rpm
   * apbs-libs-3.0.0-7.1.el8.ors.x86_64.rpm

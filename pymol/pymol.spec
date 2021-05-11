@@ -1,7 +1,7 @@
 Name: pymol
 Summary: PyMOL Molecular Graphics System
-Version: 2.3.0
-Release: 7.1%{?dist}.ors
+Version: 2.4.0
+Release: 4.1%{?dist}.ors
 
 # Which files use following license:
 # BSD: main license of open source PyMOL and some plugins
@@ -27,9 +27,8 @@ Patch3: %{name}-mmtf.patch
 # Fix brp-python-bytecompile script
 Patch4: %{name}-python3.patch
 
-# Compatibility fix for Python 3.9
-# https://github.com/schrodinger/pymol-open-source/issues/78
-Patch5: %{name}-%{version}-python39_fix.patch
+# Fix https://github.com/schrodinger/pymol-open-source/issues/119
+Patch5: %{name}-2.4.0-fix_bug119.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -41,6 +40,9 @@ BuildRequires: libGL-devel
 BuildRequires: libpng-devel
 BuildRequires: libxml2-devel
 BuildRequires: mmtf-cpp-devel
+BuildRequires: msgpack-devel
+BuildRequires: netcdf-devel
+BuildRequires: catch-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-simplejson
@@ -55,7 +57,6 @@ BuildRequires: freeglut-devel
 %if 0%{?fedora}
 BuildRequires: python3-pyside2-devel
 %endif
-
 
 Requires: apbs%{?_isa}
 Requires: python3-numpy%{?_isa}
@@ -78,17 +79,7 @@ perform many other valuable tasks (such as editing PDB files) to
 assist you in your research.
 
 %prep
-%autosetup -n %{name}-open-source-%{version} -N
-
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%if 0%{?python3_version_nodots} == 39
-%patch5 -p1 -b .python39_fix
-%endif
-
+%autosetup -n %{name}-open-source-%{version} -p1
 
 ln -sr modules/web modules/pymol_web
 sed -i 1d modules/pmg_tk/startup/apbs_tools.py
@@ -105,26 +96,26 @@ export CXXFLAGS="%{optflags}"
 
 # Create executable script for running PyMOL
 echo "#!/bin/sh" > pymol
-echo "export PYMOL_PATH=%{python3_sitearch}/pymol" >> pymol
-echo "exec %{__python3} %{python3_sitearch}/pymol/__init__.py \"\$@\"" >> pymol
+echo "export PYMOL_PATH=%{python3_sitearch}/%{name}" >> %{name}
+echo "exec %{__python3} %{python3_sitearch}/%{name}/__init__.py \"\$@\"" >> %{name}
 
-cp -a data examples test scripts %{buildroot}%{python3_sitearch}/pymol/
+cp -a data examples test %{buildroot}%{python3_sitearch}/%{name}/
 
-rm -f %{buildroot}%{python3_sitearch}/pymol/examples/devel/link_demo.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/examples/devel/particle01.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/examples/devel/particle02.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/test/inp/B03.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/test/inp/B05.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/test/inp/B11.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/test/ref/T01.log
+rm -f %{buildroot}%{python3_sitearch}/%{name}/examples/devel/link_demo.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/examples/devel/particle01.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/examples/devel/particle02.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/test/inp/B03.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/test/inp/B05.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/test/inp/B11.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/test/ref/T01.log
 
-rm -f %{buildroot}%{python3_sitearch}/pymol/pymol_path/examples/devel/link_demo.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/pymol_path/examples/devel/particle01.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/pymol_path/examples/devel/particle02.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/pymol_path/test/inp/B03.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/pymol_path/test/inp/B05.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/pymol_path/test/inp/B11.py
-rm -f %{buildroot}%{python3_sitearch}/pymol/pymol_path/test/ref/T01.log
+rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/examples/devel/link_demo.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/examples/devel/particle01.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/examples/devel/particle02.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/inp/B03.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/inp/B05.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/inp/B11.py
+rm -f %{buildroot}%{python3_sitearch}/%{name}/pymol_path/test/ref/T01.log
 
 mkdir -p %{buildroot}%{_bindir}
 install -p -m 755 pymol %{buildroot}%{_bindir}/
@@ -138,23 +129,40 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_metainfodir}/
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 
 %files
-%doc AUTHORS DEVELOPERS README
+%doc AUTHORS DEVELOPERS README.* ChangeLog
 %license LICENSE
 %{python3_sitearch}/*.egg-info
 %{python3_sitearch}/chempy/
 %{python3_sitearch}/pmg_tk/
 %{python3_sitearch}/pmg_qt/
-%{python3_sitearch}/pymol/
-%{python3_sitearch}/pymol2/
-%{_bindir}/pymol
-%{_datadir}/applications/pymol.desktop
-%{_metainfodir}/pymol.appdata.xml
-%{_datadir}/pixmaps/pymol.png
+%{python3_sitearch}/%{name}/
+%{python3_sitearch}/%{name}2/
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_metainfodir}/%{name}.appdata.xml
+%{_datadir}/pixmaps/%{name}.png
 
 %changelog
-* Sun Apr 05 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 2.3.0-7.1
+* Tue May 11 2021 Yoshihiro Okumura <orrisroot@gmail.com> - 2.4.0-4.1
 - Rebuild for EPEL 8
-- Set python3-qt5 as Requires instead of python3-PyQt4.
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jul 29 2020 Antonio Trande <sagitter@fedoraproject.org> 2.4.0-3
+- Fix for upstream bug #119 (rhbz#1861558)
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Thu Jun 18 2020 Antonio Trande <sagitter@fedoraproject.org> 2.4.0-1
+- Release 2.4.0
+
+* Tue Jun 16 2020 Antonio Trande <sagitter@fedoraproject.org> 2.3.0-9
+- Patched for using Qt interface (rhbz#1794874)
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.3.0-8
+- Rebuilt for Python 3.9
 
 * Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild

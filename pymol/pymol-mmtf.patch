@@ -10,5 +10,5 @@ diff -up pymol-open-source-2.3.0/contrib/mmtf-c/mmtf_parser.cpp.orig contrib/mmt
 +#endif
 +
  #include "mmtf_parser.h"
- #include "mmtf_parser_private.h"
  
+ //*** Standard libs
