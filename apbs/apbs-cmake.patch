@@ -1,12 +1,12 @@
---- CMakeLists.txt_orig	2018-05-20 13:00:17.451341064 -0400
-+++ CMakeLists.txt	2018-05-20 13:00:47.917440250 -0400
+--- a/apbs/CMakeLists.txt_orig	2018-05-20 13:00:17.451341064 -0400
++++ b/apbs/CMakeLists.txt	2018-05-20 13:00:47.917440250 -0400
 @@ -1,4 +1,5 @@
- cmake_minimum_required (VERSION 2.8.7)
+ cmake_minimum_required (VERSION 3.12)
 +set(CMAKE_POSITION_INDEPENDENT_CODE ON)
  
  ################################################################################
  # TODO:  Add licensing and authorship information
-@@ -63,10 +64,10 @@
+@@ -70,10 +71,10 @@
  set(TOOLS_PATH ${APBS_BUILD}/tools)
  set(APBS_BINARY ${EXECUTABLE_OUTPUT_PATH}/apbs)
  
@@ -20,109 +20,94 @@
  
  set(APBS_LIBS)
  set(APBS_LIB_DIRS)
-@@ -78,7 +79,7 @@
-   DOC "The path to the external git submodules"
-   )
+@@ -85,7 +86,7 @@
+           PATHS "${APBS_ROOT}"
+           DOC "The path to the external git submodules")
  
 -set(SYS_LIBPATHS /usr/lib64)
 +#set(SYS_LIBPATHS /usr/lib64)
  #list(APPEND SYS_LIBPATHS /usr/lib64)
  
- ################################################################################
-@@ -105,9 +106,9 @@
  
+@@ -139,11 +140,6 @@
+ ################################################################################
  message(STATUS "Setting lookup paths for headers and libraries")
  
 -set(CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH}")
 -list(APPEND CMAKE_INCLUDE_PATH /usr/include)
 -list(APPEND CMAKE_INCLUDE_PATH /usr/local/include)
-+#set(CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH}")
-+#list(APPEND CMAKE_INCLUDE_PATH /usr/include)
-+#list(APPEND CMAKE_INCLUDE_PATH /usr/local/include)
- 
- 
- 
-@@ -259,11 +260,11 @@
- 
+-
+-
+ ################################################################################
+ # Enable ansi pedantic compiling                                               #
+ ################################################################################
+@@ -307,12 +303,12 @@
+ ################################################################################
  if(NOT ENABLE_FETK)
-   # We'll use autotools to build MALOC if FETK is enabled.
--  set(MALOC_ROOT ${EXTERNALS_PATH}/fetk/maloc)
--  add_subdirectory(${MALOC_ROOT})
--  include_directories(${MALOC_ROOT}/src/base ${MALOC_ROOT}/src/vsys
--    ${MALOC_ROOT}/src/vsh ${MALOC_ROOT}/src/psh)
--  list(APPEND APBS_LIB_DIRS ${EXTERNALS_PATH}/fetk/maloc/lib)
-+  #set(MALOC_ROOT ${EXTERNALS_PATH}/fetk/maloc)
-+  # add_subdirectory(${MALOC_ROOT})
-+  #include_directories(${MALOC_ROOT}/src/base ${MALOC_ROOT}/src/vsys
-+  #  ${MALOC_ROOT}/src/vsh ${MALOC_ROOT}/src/psh)
-+  #list(APPEND APBS_LIB_DIRS ${EXTERNALS_PATH}/fetk/maloc/lib)
-   list(APPEND APBS_LIBS maloc)
+     # We'll use autotools to build MALOC if FETK is enabled.
+-    add_subdirectory(${EXTERNALS_PATH}/fetk/maloc)
+-    include_directories(${EXTERNALS_PATH}/fetk/maloc/src/base
+-                        ${EXTERNALS_PATH}/fetk/maloc/src/vsys
+-                        ${EXTERNALS_PATH}/fetk/maloc/src/vsh
+-                        ${EXTERNALS_PATH}/fetk/maloc/src/psh)
+-    list(APPEND APBS_LIB_DIRS ${EXTERNALS_PATH}/fetk/maloc/lib)
++    #add_subdirectory(${EXTERNALS_PATH}/fetk/maloc)
++    #include_directories(${EXTERNALS_PATH}/fetk/maloc/src/base
++    #                    ${EXTERNALS_PATH}/fetk/maloc/src/vsys
++    #                    ${EXTERNALS_PATH}/fetk/maloc/src/vsh
++    #                    ${EXTERNALS_PATH}/fetk/maloc/src/psh)
++    #list(APPEND APBS_LIB_DIRS ${EXTERNALS_PATH}/fetk/maloc/lib)
+     list(APPEND APBS_LIBS maloc)
  endif()
  
-@@ -736,12 +737,12 @@
+@@ -778,10 +774,10 @@
+ ################################################################################
  # Set up additional directories to install                                     #
  ################################################################################
- 
--install(
--    DIRECTORY ${APBS_ROOT}/doc
--    DESTINATION ${SHARE_INSTALL_PATH}
--    PATTERN "programmer" EXCLUDE
--    PATTERN "CMakeLists.txt" EXCLUDE
--)
-+#install(
-+#    DIRECTORY ${APBS_ROOT}/doc
-+#    DESTINATION ${SHARE_INSTALL_PATH}
-+#    PATTERN "programmer" EXCLUDE
-+#    PATTERN "CMakeLists.txt" EXCLUDE
-+#)
+-install(DIRECTORY ${APBS_ROOT}/doc
+-        DESTINATION ${SHARE_INSTALL_PATH}
+-        PATTERN "programmer" EXCLUDE
+-        PATTERN "CMakeLists.txt" EXCLUDE)
++#install(DIRECTORY ${APBS_ROOT}/doc
++#        DESTINATION ${SHARE_INSTALL_PATH}
++#        PATTERN "programmer" EXCLUDE
++#        PATTERN "CMakeLists.txt" EXCLUDE)
  
  if(BUILD_DOC)
-     install(
-@@ -753,24 +754,24 @@
-     )
+     install(DIRECTORY ${APBS_BUILD}/doc/programmer
+@@ -791,27 +787,11 @@
+             PATTERN "mainpage.h" EXCLUDE)
  endif()
  
--install(
--    DIRECTORY ${APBS_ROOT}/examples
--    DESTINATION ${SHARE_INSTALL_PATH}
--)
+-install(DIRECTORY ${APBS_ROOT}/examples
+-        DESTINATION ${SHARE_INSTALL_PATH})
 -
--install(
--    DIRECTORY ${APBS_ROOT}/tests
--    DESTINATION ${SHARE_INSTALL_PATH}
--    FILES_MATCHING
+-install(DIRECTORY ${APBS_ROOT}/tests
+-        DESTINATION ${SHARE_INSTALL_PATH}
+-        FILES_MATCHING
 -        PATTERN "*.py"
--        PATTERN "README"
--)
+-        PATTERN "README")
 -
--install(
--    DIRECTORY ${APBS_ROOT}/tools
--    DESTINATION ${SHARE_INSTALL_PATH}
--    PATTERN "CMakeLists.txt" EXCLUDE
--)
-+#install(
-+#    DIRECTORY ${APBS_ROOT}/examples
-+#    DESTINATION ${SHARE_INSTALL_PATH}
-+#)
-+
-+#install(
-+#    DIRECTORY ${APBS_ROOT}/tests
-+#    DESTINATION ${SHARE_INSTALL_PATH}
-+#    FILES_MATCHING
-+#        PATTERN "*.py"
-+#        PATTERN "README"
-+#)
-+
-+#install(
-+#    DIRECTORY ${APBS_ROOT}/tools
-+#    DESTINATION ${SHARE_INSTALL_PATH}
-+#    PATTERN "CMakeLists.txt" EXCLUDE
-+#)
+-if(BUILD_TOOLS)
+-    install(DIRECTORY ${APBS_ROOT}/tools
+-            DESTINATION ${SHARE_INSTALL_PATH}
+-            USE_SOURCE_PERMISSIONS
+-            PATTERN "CMakeLists.txt"
+-            PATTERN "matlab" EXCLUDE)
+-
+-    if(NOT "${APBS_ROOT}" STREQUAL "${APBS_BUILD}")
+-    install(DIRECTORY ${APBS_BUILD}/tools/bin
++if(NOT "${APBS_ROOT}" STREQUAL "${APBS_BUILD}")
++    install(
++            DIRECTORY ${APBS_BUILD}/tools/bin
+             DESTINATION ${SHARE_INSTALL_PATH}/tools
+             USE_SOURCE_PERMISSIONS)
+-    endif()
+ endif()
  
- if(NOT "${APBS_ROOT}" STREQUAL "${APBS_BUILD}")
-     install(
---- src/CMakeLists.txt_orig	2018-05-20 13:00:20.518351049 -0400
-+++ src/CMakeLists.txt	2018-05-20 13:00:47.917440250 -0400
+ ################################################################################
+--- a/apbs/src/CMakeLists.txt_orig	2018-05-20 13:00:20.518351049 -0400
++++ b/apbs/src/CMakeLists.txt	2018-05-20 13:00:47.917440250 -0400
 @@ -32,11 +32,11 @@
      message(STATUS "With external header files ${EXTERNAL_HEADERS}")
      message(STATUS "With internal header files ${INTERNAL_HEADERS}")
@@ -138,7 +123,7 @@
      list(APPEND APBS_INTERNAL_LIBS ${LIBRARY_NAME})
      set(APBS_INTERNAL_LIBS ${APBS_INTERNAL_LIBS} PARENT_SCOPE)
      message(STATUS "Added ${LIBRARY_NAME}")
-@@ -47,6 +47,11 @@
+@@ -45,6 +45,11 @@
  add_subdirectory(generic)
  add_subdirectory(pmgc)
  add_subdirectory(mg)
@@ -150,26 +135,26 @@
  
  if(ENABLE_FETK)
     add_subdirectory(fem)
-@@ -57,7 +62,7 @@
+@@ -56,7 +61,7 @@
+ message(STATUS "External Headers: ${EXTERNAL_HEADERS}")
  
- message(STATUS ${EXTERNAL_HEADERS})
- 
+ #add_executable(apbs main.c routines.c)
 -add_executable(apbs main.c apbs.h routines.c routines.h)
 +add_executable(apbs-bin main.c apbs.h routines.c routines.h)
- message(***************************)
  message(STATUS " ")
  message(STATUS "APBS Libraries: ${APBS_LIBS}")
-@@ -66,7 +71,8 @@
- message(***************************)
+ message(STATUS "Internal Libraries: ${APBS_INTERNAL_LIBS}")
+@@ -64,7 +69,8 @@
  
  #add_dependencies(apbs ${BEM_LIB})
+ #target_include_directories(apbs PRIVATE apbs.h routines.h)
 -target_link_libraries(apbs ${APBS_LIBS} ${APBS_INTERNAL_LIBS} ${APBS_LIBS})
 +target_link_libraries(apbs-bin ${APBS_LIBS} apbs)
 +SET_TARGET_PROPERTIES(apbs-bin PROPERTIES OUTPUT_NAME apbs)
  #add_dependencies(apbs ${APBS_LIBS} ${APBS_INTERNAL_LIBS} ${APBS_LIBS})
  
  configure_file(
-@@ -81,6 +87,6 @@
+@@ -79,6 +85,6 @@
  endif()
  
  INSTALL(FILES apbs.h routines.h DESTINATION ${HEADER_INSTALL_PATH})
@@ -177,8 +162,8 @@
 +INSTALL(TARGETS apbs-bin DESTINATION ${EXECUTABLE_INSTALL_PATH})
  
  message(STATUS ${CMAKE_C_FLAGS})
---- tools/manip/CMakeLists.txt_orig	2018-05-20 13:00:31.831387880 -0400
-+++ tools/manip/CMakeLists.txt	2018-05-20 13:07:07.742714938 -0400
+--- a/apbs/tools/manip/CMakeLists.txt_orig	2018-05-20 13:00:31.831387880 -0400
++++ b/apbs/tools/manip/CMakeLists.txt	2018-05-20 13:07:07.742714938 -0400
 @@ -1,9 +1,10 @@
  message(STATUS "Building manip")
  
@@ -205,8 +190,8 @@
 +target_link_libraries(born ${LIBS} ${APBS_LIBS})
 +
 +INSTALL(TARGETS coulomb born DESTINATION ${EXECUTABLE_INSTALL_PATH})
---- tools/mesh/CMakeLists.txt_orig	2018-05-20 13:00:26.966372042 -0400
-+++ tools/mesh/CMakeLists.txt	2018-05-20 13:00:47.917440250 -0400
+--- a/apbs/tools/mesh/CMakeLists.txt_orig	2018-05-20 13:00:26.966372042 -0400
++++ b/apbs/tools/mesh/CMakeLists.txt	2018-05-20 13:00:47.917440250 -0400
 @@ -1,9 +1,10 @@
  message(STATUS "Building mesh")
  

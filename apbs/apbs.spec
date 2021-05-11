@@ -1,24 +1,42 @@
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+# Workaround for GCC-10
+%define _legacy_common_support 1
+
+%global commit %{nil}
+%global shortcommit %{nil}
+%global datecommit %{nil}
+
+%bcond_without python
+
+# To perform all tests, APBS needs to be compiled together additional sub-modules
+%bcond_with check
 
 Name: apbs
 Summary: Adaptive Poisson Boltzmann Solver
-Version: 1.5
-Release: 4.1%{?dist}.ors
-# License of pmgZ, aqua and contrib/blas/mblasd.f is LGPLv2+, the rest is BSD.
+Version: 3.0.0
+Release: 7%{datecommit}%{shortcommit}.1%{?dist}.ors
+# iAPBS looks licensed with a LGPLv2+, APBS is released under BSD license.
 License: LGPLv2+ and BSD
-URL: http://apbs.sourceforge.net/
-Source0: https://github.com/Electrostatics/apbs-pdb2pqr/archive/apbs-%{version}.tar.gz
+URL: https://www.poissonboltzmann.org/
+Source0: https://github.com/Electrostatics/apbs-pdb2pqr/archive/%{version}/%{name}-pdb2pqr-vAPBS-%{version}.tar.gz
+Source1: apbs-LGPL_V2
 Patch0: apbs-cmake.patch
-BuildRequires:  gcc-c++
+
+BuildRequires: gcc-c++
 BuildRequires: cmake
+BuildRequires: make
 BuildRequires: doxygen
 BuildRequires: graphviz
-BuildRequires: arpack-devel
-BuildRequires: atlas-devel
-BuildRequires: blas-devel
+#BuildRequires: arpack-devel
+#BuildRequires: atlas-devel
+#BuildRequires: blas-devel
 BuildRequires: maloc-devel
+BuildRequires: python3-devel
+BuildRequires: python3-numpy
+BuildRequires: python3-sphinx
+BuildRequires: swig
 BuildRequires: tex(latex)
 BuildRequires: zlib-devel
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 APBS is a software package for the numerical solution of the
@@ -32,64 +50,96 @@ visualization (in such applications as PyMOL).
 
 %package tools
 Summary: utility programs that utilize the APBS package
-Requires: %{name} = %{version}-%{release}
-
+Requires: %{name}%{?_isa} = %{version}-%{release}
 %description tools
-
 The apbs-tools package contains several utility programs for
 conversion, analysis and preparation of files that use the adaptive
 poisson boltzmann solver library.
 
+%package libs
+Summary: Libraries for APBS
+%description libs
+APBS solver libraries.
+
 %package devel
 Summary: Libraries and header files for the APBS package
-Requires: %{name} = %{version}-%{release}
-
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description devel
-
 The apbs-devel package contains the header files and libraries
 necessary for developing programs using the adaptive poisson boltzmann
 (APBS) solver library.
 
 %package doc
 Summary: Documentation for the APBS package
-Requires: %{name} = %{version}-%{release}
-
+BuildArch: noarch
 %description doc
-
 The apbs-doc package contains API reference inforemation for
 development using the adaptive poisson boltzmann (APBS) solver
 library.
 
 %prep
-%setup -q -n %{name}-pdb2pqr-apbs-%{version}
-cd apbs
-%patch0 -p0
+%autosetup -n %{name}-pdb2pqr-vAPBS-%{version} -N
+%patch0 -p1 -b .apbs-cmake
+
+cp -p apbs/contrib/iapbs/COPYING apbs/contrib/iapbs/iapbs-COPYING
+cp -p %{SOURCE1} apbs/contrib/iapbs/iapbs-LGPLv2
 
 %build
-cd apbs
-# %cmake -D BUILD_DOC:BOOL=ON .
-%cmake -D BUILD_DOC:BOOL=OFF .
-make %{?_smp_mflags}
-cd doc/programmer
-doxygen
+export CFLAGS="%{build_cflags} -fopenmp -lm"
+export CXXFLAGS="%{build_cxxflags} -fopenmp -lm"
+%cmake3 -S apbs -DBUILD_DOC:BOOL=OFF -DCMAKE_BUILD_TYPE:STRING=Release \
+ -DENABLE_iAPBS:BOOL=ON -DENABLE_OPENMP:BOOL=ON -DENABLE_VERBOSE_DEBUG:BOOL=OFF \
+ -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DENABLE_FETK:BOOL=OFF \
+%if %{with python}
+ -DENABLE_PYTHON:BOOL=ON
+%endif
+%cmake_build
 
 %install
-rm -rf %{buildroot}
-
-cd apbs
-make install DESTDIR=%{buildroot}
+%cmake_install
 
 # tools
-for bin in %{buildroot}%{_bindir}/{coulomb,born,mgmesh,dxmath,mergedx2,mergedx,value,uhbd_asc2bin,smooth,dx2mol,dx2uhbd,similarity,multivalue,benchmark,analysis,del2dx,tensor2dx} tools/manip/psize.py; do
-    mv $bin %{buildroot}%{_bindir}/apbs-`basename $bin`
+for bin in %{buildroot}%{_bindir}/{coulomb,born,mgmesh,dxmath,mergedx2,mergedx,value,uhbd_asc2bin,smooth,dx2mol,dx2uhbd,similarity,multivalue,benchmark,analysis,del2dx,tensor2dx}; do
+    cp -p $bin %{buildroot}%{_bindir}/apbs-`basename $bin`
+    rm -f $bin
 done
 
-%ldconfig_scriptlets
+# Move Python libraries under Python's tree directories
+mkdir -p %{buildroot}%{python3_sitearch}/apbs
+install -pm 755 apbs/tools/manip/psize.py %{buildroot}%{python3_sitearch}/apbs/
+pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/apbs/psize.py
+ln -s %{python3_sitearch}/apbs/psize.py %{buildroot}%{_bindir}/apbs-psize.py
+install -pm 755 lib/_apbslib.so %{buildroot}%{python3_sitearch}/apbs/
+
+# Remove redundant tools binary files in /usr/share
+rm -rf %{buildroot}%{_datadir}/apbs
+
+# Remove static libraries
+for i in `find %{buildroot} -type f \( -name "*.a" \)`; do
+ rm -f $i
+done
+
+%if %{with check}
+%check
+pushd apbs/tests
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+sed -i 's|../build/bin/apbs|../bin/apbs|g' ./apbs_tester.py
+%{__python3} ./apbs_tester.py
+%endif
 
 %files
-%doc apbs/doc/license/LICENSE.txt apbs/doc/README apbs/doc/ChangeLog.md
 %{_bindir}/apbs
+
+%files libs
+%license apbs/LICENSE.md apbs/COPYING apbs/contrib/iapbs/iapbs-COPYING apbs/contrib/iapbs/iapbs-LGPLv2
+%doc apbs/README.md
 %{_libdir}/libapbs*.so.*
+%{python3_sitearch}/apbs/
+
+%files devel
+%{_libdir}/libapbs*.so
+%{_includedir}/iapbs/
+%{_includedir}/apbs
 
 %files tools
 %{_bindir}/apbs-psize.py
@@ -111,16 +161,50 @@ done
 %{_bindir}/apbs-del2dx
 %{_bindir}/apbs-tensor2dx
 
-%files devel
-%{_libdir}/libapbs*.so
-%{_includedir}/apbs
-
 %files doc
-%doc apbs/doc/programmer/html
+%license doc/apbs/license.rst
+%doc doc/_build/html
 
 %changelog
-* Sun Apr 05 2020 Yoshihiro Okumura <orrisroot@gmail.com> - 1.5-4.1
+* Tue May 11 2021 Yoshihiro Okumura <orrisroot@gmail.com> - 3.0.0-7.1
 - Rebuild for EPEL 8
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Fri Jan 01 2021 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-6
+- Use cmake3 options
+
+* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
+- Second attempt - Rebuilt for
+  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jun 17 2020 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-3
+- Use cmake3 macro
+
+* Wed Jun 17 2020 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-2
+- Use cmake3
+
+* Sun May 31 2020 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-1
+- Release 3.0.0
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 3.0.0-0.3.20200512gitdfb858d
+- Rebuilt for Python 3.9
+
+* Wed May 13 2020 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-0.2.20200512gitdfb858d
+- Fix release tag
+
+* Wed May 13 2020 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-0.1.20200512.gitdfb858d
+- Pre-release 3.0.0 (rhbz#1752306, rhbz#1799157)
+- Add libs sub-package
+- Add workaround for GCC-10
+- Use Python3
+
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
 * Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild

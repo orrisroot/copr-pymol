@@ -20,14 +20,16 @@ $ sudo dnf install pymol
   * pymol-debuginfo-2.3.0-7.1.el8.ors.x86_64.rpm
   * pymol-debugsource-2.3.0-7.1.el8.ors.x86_64.rpm
 * apbs : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/apbs/)
-  * apbs-1.5-4.1.el8.ors.src.rpm
-  * apbs-1.5-4.1.el8.ors.x86_64.rpm
-  * apbs-debuginfo-1.5-4.1.el8.ors.x86_64.rpm
-  * apbs-debugsource-1.5-4.1.el8.ors.x86_64.rpm
-  * apbs-devel-1.5-4.1.el8.ors.x86_64.rpm
-  * apbs-doc-1.5-4.1.el8.ors.x86_64.rpm
-  * apbs-tools-1.5-4.1.el8.ors.x86_64.rpm
-  * apbs-tools-debuginfo-1.5-4.1.el8.ors.x86_64.rpm
+  * apbs-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-libs-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-tools-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-doc-3.0.0-7.1.el8.ors.noarch.rpm
+  * apbs-devel-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-debuginfo-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-libs-debuginfo-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-tools-debuginfo-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-debugsource-3.0.0-7.1.el8.ors.x86_64.rpm
+  * apbs-3.0.0-7.1.el8.ors.src.rpm
 * python-pmw : [![Copr build status](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/orrisroot/pymol/package/python-pmw/)
   * python3-pmw-2.0.0-20.el8.noarch.rpm
   * python-pmw-2.0.0-20.el8.src.rpm
