@@ -8,7 +8,7 @@ Currently, Copr repository is provided only CentOS 8 packages.
 ```
 $ sudo dnf install dnf-plugins-core
 $ sudo dnf copr enable orrisroot/pymol
-$ sudo dnf config-manager --set-enabled PowerTools
+$ sudo dnf config-manager --set-enabled powertools
 $ sudo dnf install epel-release
 $ sudo dnf install pymol
 ```
